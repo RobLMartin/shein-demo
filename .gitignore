@@ -1,0 +1,55 @@
+# General
+node_modules/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+*.env
+*.swp
+*.swo
+
+# Build outputs
+/dist
+/build
+/out
+/*.tgz
+/public/bundles
+/public/packs
+/public/packs-test
+
+# Dependency directories
+.jest/
+coverage/
+pnp.*
+.yarn/
+
+# Python specific ignores for backend project
+backend/__pycache__/
+backend/*.py[cod]
+backend/*$py.class
+backend/.pytest_cache/
+backend/build/
+backend/dist/
+backend/eggs/
+backend/parts/
+backend/sdist/
+backend/var/
+backend/wheels/
+backend/*.egg-info/
+backend/.env
+backend/.venv
+backend/env/
+backend/venv/
+backend/ENV/
+backend/env.bak/
+backend/venv.bak/
+backend/*.sqlite3
+
+# React specific ignores for inventory and shop projects
+inventory/build/
+shop/build/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
