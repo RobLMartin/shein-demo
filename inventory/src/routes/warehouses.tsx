@@ -17,7 +17,10 @@ export default function Warehouses() {
   return (
     <div className="w-full">
       {warehouses.map((warehouse) => (
-        <Link to={`/warehouses/${warehouse.id}`} className="w-full">
+        <Link
+          to={`/warehouses/${warehouse.id}?lat=${warehouse.latitude}&long=${warehouse.longitude}`}
+          className="w-full"
+        >
           <div
             key={warehouse.id}
             className="p-6 border-b border-zinc-700 hover:bg-zinc-700"

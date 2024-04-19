@@ -1,12 +1,16 @@
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "mapbox-gl";
-// import mockdata from "./mockdata";
+import { useLocation } from "react-router-dom";
 const default_center = [-86.2463, 45.9578];
 const default_zoom = 8;
 
-export default function useMap(lat, long) {
+export default function useMap() {
   const mapContainer = useRef(null);
   const map = useRef(null);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const lat = parseFloat(searchParams.get("lat"));
+  const long = parseFloat(searchParams.get("long"));
 
   const [isDarkMode, setIsDarkMode] = useState(
     window &&

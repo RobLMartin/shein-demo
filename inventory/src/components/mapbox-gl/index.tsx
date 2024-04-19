@@ -1,7 +1,7 @@
 import useMap from "./useMap";
 
-export default function MapboxGL({ lat, long }: { lat: number; long: number }) {
-  const mapContainer = useMap(lat, long);
+export default function MapboxGL() {
+  const mapContainer = useMap();
 
   return (
     <div className="h-full relative">

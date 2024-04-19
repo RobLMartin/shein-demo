@@ -37,6 +37,9 @@ def add_stock_items():
         StockItem(item_id=1, warehouse_id=1, quantity=100),
         StockItem(item_id=2, warehouse_id=1, quantity=150),
         StockItem(item_id=3, warehouse_id=1, quantity=200),
+        StockItem(item_id=1, warehouse_id=2, quantity=120),
+        StockItem(item_id=2, warehouse_id=2, quantity=180),
+        StockItem(item_id=3, warehouse_id=2, quantity=240),
     ]
     for stock_item in stock_items:
         db.session.add(stock_item)
