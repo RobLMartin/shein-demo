@@ -2,14 +2,16 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import MapboxGL from "../../components/mapbox-gl";
 import { Warehouse, WarehouseItem } from "../../types";
-import { FiChevronLeft, FiEdit } from "react-icons/fi";
+import { FiChevronLeft, FiEdit, FiPlus } from "react-icons/fi";
 import AuditModal from "./components/audit.modal";
+import AddStockModal from "./components/add.stock.modal";
 
 export default function WarehousePage() {
   const [warehouse, setWarehouse] = useState<Warehouse | null>();
   const { warehouseId } = useParams();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [currentItem, setCurrentItem] = useState<WarehouseItem | null>(null);
+  const [isAddStockModalOpen, setIsAddStockModalOpen] = useState(false);
 
   useEffect(() => {
     warehouseId && fetchWarehouse();
@@ -35,7 +37,10 @@ export default function WarehousePage() {
     <div>
       <div className="relative h-[700px]">
         <MapboxGL />
-        <Controls warehouse={warehouse} />
+        <Controls
+          warehouse={warehouse}
+          openAddStock={() => setIsAddStockModalOpen(true)}
+        />
       </div>
       <div className="z-10 mt-[72px]">
         {warehouse?.items?.map((item) => (
@@ -63,25 +68,41 @@ export default function WarehousePage() {
         warehouseId={warehouseId}
         refreshData={fetchWarehouse}
       />
+      <AddStockModal
+        isOpen={isAddStockModalOpen}
+        onClose={() => setIsAddStockModalOpen(false)}
+        warehouseId={warehouse.id}
+        refreshWarehouse={fetchWarehouse}
+      />
     </div>
   );
 }
 
 type ControlProps = {
   warehouse: Warehouse;
+  openAddStock: () => void;
 };
 
-const Controls = ({ warehouse }: ControlProps) => {
+const Controls = ({ warehouse, openAddStock }: ControlProps) => {
   const navigate = useNavigate();
+
   return (
-    <div className="absolute top-0 left-0 p-4 bg-opacity-75 text-white text-3xl flex items-center gap-4">
+    <div className="w-full absolute top-0 left-0 p-4 bg-zinc-950 bg-opacity-10 text-white text-3xl flex items-center backdrop-filter backdrop-blur-lg justify-between">
+      <div className="flex gap-4 items-center">
+        <button
+          onClick={() => navigate(-1)}
+          className="bg-zinc-700 hover:bg-opacity-30 p-2 rounded w-10 h-10 flex items-center justify-center"
+        >
+          <FiChevronLeft size={24} />
+        </button>
+        <h1 className="p-2">{warehouse.name}</h1>
+      </div>
       <button
-        onClick={() => navigate(-1)}
-        className=" bg-zinc-700 bg-opacity-20 hover:bg-opacity-30 backdrop-filter backdrop-blur-sm p-2 rounded"
+        onClick={openAddStock}
+        className="bg-zinc-700 hover:bg-opacity-30 p-2 rounded w-10 h-10 flex items-center justify-center"
       >
-        <FiChevronLeft height={30} width={30} />
+        <FiPlus size={24} />
       </button>
-      <h1 className="p-2">{warehouse.name}</h1>
     </div>
   );
 };

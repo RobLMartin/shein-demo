@@ -3,6 +3,7 @@ import { MdWarehouse } from "react-icons/md";
 import { FaRectangleList } from "react-icons/fa6";
 
 import Logo from "./logo";
+import { FaTshirt } from "react-icons/fa";
 
 export default function navigation() {
   return (
@@ -11,15 +12,15 @@ export default function navigation() {
         <li>
           <Link
             to="/warehouses"
-            className="flex items-center justify-center p-4 hover:bg-zinc-700"
+            className="flex items-center justify-center p-4 hover:bg-zinc-800"
           >
-            <Logo height={40} width={40} />
+            <Logo height={35} width={35} />
           </Link>
         </li>
         <li>
           <Link
             to="/warehouses"
-            className="flex items-center justify-center p-4 hover:bg-zinc-700"
+            className="flex items-center justify-center p-4 hover:bg-zinc-800"
           >
             <MdWarehouse fontSize="24px" />
           </Link>
@@ -27,9 +28,17 @@ export default function navigation() {
         <li>
           <Link
             to="/orders"
-            className="flex items-center justify-center p-4 hover:bg-zinc-700"
+            className="flex items-center justify-center p-4 hover:bg-zinc-800"
           >
             <FaRectangleList fontSize="24px" />
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/item-onboarding"
+            className="flex items-center justify-center p-4 hover:bg-zinc-800"
+          >
+            <FaTshirt fontSize="24px" />
           </Link>
         </li>
       </ul>

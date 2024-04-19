@@ -64,3 +64,31 @@ def delete_warehouse(id):
             "message": "Warehouse and its stock items deleted successfully",
         }
     )
+
+
+@warehouse_bp.route("/warehouses/<int:warehouse_id>/items", methods=["POST"])
+def add_stock_item(warehouse_id):
+    data = request.get_json()
+    item_id = data.get("itemId")
+    quantity = data.get("quantity")
+
+    if not item_id or quantity is None:
+        return jsonify({"error": "Item ID and quantity are required"}), 400
+
+    item = Item.query.get(item_id)
+    if not item:
+        return jsonify({"error": "Item not found"}), 404
+
+    existing_stock_item = StockItem.query.filter_by(
+        item_id=item_id, warehouse_id=warehouse_id
+    ).first()
+    if existing_stock_item:
+        return jsonify({"error": "Item already exists in the warehouse"}), 400
+
+    new_stock_item = StockItem(
+        item_id=item_id, warehouse_id=warehouse_id, quantity=quantity
+    )
+    db.session.add(new_stock_item)
+    db.session.commit()
+
+    return jsonify({"success": True, "message": "Stock item added successfully"}), 201

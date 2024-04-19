@@ -13,3 +13,10 @@ export type Warehouse = {
   longitude: number;
   items?: WarehouseItem[];
 };
+
+export type Item = {
+  id: number;
+  name: string;
+  description?: string;
+  price: number;
+};
