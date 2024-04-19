@@ -1,14 +1,18 @@
 from flask import Blueprint, request, jsonify
 from models import db, Order, OrderItem, Warehouse, StockItem, User
 from sqlalchemy.orm import joinedload
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
 
 order_bp = Blueprint("order_bp", __name__)
 
 
+@jwt_required()
 @order_bp.route("/orders", methods=["POST"])
 def create_order():
     data = request.get_json()
-    user_id = data["user_id"]
+    user_id = get_jwt_identity()
     items = data["items"]
 
     user_location = data.get("user_location")

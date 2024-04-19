@@ -21,6 +21,12 @@ def get_items():
     return jsonify([item.to_json() for item in items])
 
 
+@item_bp.route("/items/<int:id>", methods=["GET"])
+def get_item(id):
+    item = Item.query.get_or_404(id)
+    return jsonify(item.to_json())
+
+
 @item_bp.route("/items/<int:id>", methods=["PUT"])
 def update_item(id):
     item = Item.query.get_or_404(id)
