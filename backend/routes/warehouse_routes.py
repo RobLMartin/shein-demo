@@ -92,3 +92,15 @@ def add_stock_item(warehouse_id):
     db.session.commit()
 
     return jsonify({"success": True, "message": "Stock item added successfully"}), 201
+
+
+@warehouse_bp.route("/warehouses/<int:warehouse_id>/available-items", methods=["GET"])
+def get_available_items(warehouse_id):
+    all_items = Item.query.all()
+    stocked_item_ids = [
+        stock_item.item_id
+        for stock_item in StockItem.query.filter_by(warehouse_id=warehouse_id).all()
+    ]
+    available_items = [item for item in all_items if item.id not in stocked_item_ids]
+
+    return jsonify([item.to_json() for item in available_items])

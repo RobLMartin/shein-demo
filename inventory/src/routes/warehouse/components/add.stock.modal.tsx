@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Item } from "../../../types";
 
 type AddStockModalProps = {
   isOpen: boolean;
@@ -17,6 +18,30 @@ const AddStockModal: React.FC<AddStockModalProps> = ({
     itemId: "",
     quantity: 0,
   });
+  const [availableItems, setAvailableItems] = useState<Item[]>([]);
+
+  useEffect(() => {
+    if (isOpen) {
+      fetchAvailableItems();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, warehouseId]);
+
+  const fetchAvailableItems = async () => {
+    const response = await fetch(
+      `http://127.0.0.1:5000/warehouses/${warehouseId}/available-items`
+    );
+    if (response.ok) {
+      const items = await response.json();
+      setAvailableItems(items);
+      if (items.length > 0) {
+        setStockData((prev) => ({
+          ...prev,
+          itemId: items[0].id,
+        }));
+      }
+    }
+  };
 
   const addStockItem = async () => {
     const response = await fetch(
@@ -37,7 +62,11 @@ const AddStockModal: React.FC<AddStockModalProps> = ({
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setStockData((prev) => ({
       ...prev,
@@ -51,15 +80,18 @@ const AddStockModal: React.FC<AddStockModalProps> = ({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-zinc-800 p-6 rounded-lg">
         <h2 className="text-3xl">Add Stock Item</h2>
-        {/* Inputs for item ID and quantity */}
-        <input
+        <select
           name="itemId"
-          type="text"
-          placeholder="Item ID"
           value={stockData.itemId}
           onChange={handleChange}
           className="p-2 bg-zinc-700 text-zinc-100 placeholder-zinc-400 rounded w-full mt-4"
-        />
+        >
+          {availableItems.map((item) => (
+            <option key={item.id} value={item.id}>
+              {item.name}
+            </option>
+          ))}
+        </select>
         <input
           name="quantity"
           type="number"

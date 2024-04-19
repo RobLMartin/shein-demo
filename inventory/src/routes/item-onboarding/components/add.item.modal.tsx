@@ -47,7 +47,6 @@ const AddItemModal: React.FC<AddItemModalProps> = ({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="bg-zinc-800 p-6 rounded-lg">
         <h2 className="text-3xl">Add New Item</h2>
-        {/* Inputs for name, description, and price */}
         <input
           name="name"
           type="text"
