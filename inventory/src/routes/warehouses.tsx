@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Warehouse } from "../types";
+
 export default function Warehouses() {
   const [warehouses, setWarehouses] = useState<Warehouse[]>([]);
   useEffect(() => {
@@ -15,17 +16,17 @@ export default function Warehouses() {
   };
 
   return (
-    <div className="w-full">
+    <div className="w-full grid">
       {warehouses.map((warehouse) => (
         <Link
+          key={warehouse.id}
           to={`/warehouses/${warehouse.id}?lat=${warehouse.latitude}&long=${warehouse.longitude}`}
-          className="w-full"
+          className="block border-b border-zinc-700 hover:bg-zinc-700"
         >
-          <div
-            key={warehouse.id}
-            className="p-6 border-b border-zinc-700 hover:bg-zinc-700"
-          >
-            {warehouse.name} - {warehouse.latitude}, {warehouse.longitude}
+          <div className="p-6 grid grid-cols-3">
+            <h3 className="text-lg font-semibold">{warehouse.name}</h3>
+            <p>Latitude: {warehouse.latitude}</p>
+            <p>Longitude: {warehouse.longitude}</p>
           </div>
         </Link>
       ))}
