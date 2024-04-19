@@ -75,6 +75,7 @@ export default function useMap() {
     return () => {
       map.current.off("load", loadMapbox);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [geoJson, isDarkMode]);
 
   const loadMapbox = () => {
