@@ -14,6 +14,7 @@ function App() {
         <div className="w-[calc(100vw-56px)]">
           <Routes>
             <Route path="/warehouses" element={<Warehouses />} />
+            <Route path="/" element={<Warehouses />} />
             <Route path="/warehouses/:warehouseId" element={<Warehouse />} />
             <Route path="/orders" element={<Orders />} />
             <Route path="/orders/:orderId" element={<Order />} />

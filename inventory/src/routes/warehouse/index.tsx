@@ -34,7 +34,7 @@ export default function WarehousePage() {
   if (!warehouse) return <div>Loading...</div>;
 
   return (
-    <div>
+    <div className="max-h-screen">
       <div className="relative h-[700px]">
         <MapboxGL />
         <Controls
@@ -42,7 +42,7 @@ export default function WarehousePage() {
           openAddStock={() => setIsAddStockModalOpen(true)}
         />
       </div>
-      <div className="z-10 mt-[72px]">
+      <div className="mt-[72px] overflow-y-auto h-[calc(100vh-772px)]">
         {warehouse?.items?.map((item) => (
           <div
             onClick={() => openAuditModal(item)}

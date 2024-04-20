@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 
 app = Flask(__name__)
-CORS(app, origins="http://localhost:3002")
+CORS(app, origins="*")
 
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///shein.sqlite"

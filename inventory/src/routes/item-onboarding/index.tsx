@@ -29,17 +29,19 @@ export default function ItemOnboarding() {
           <FiPlus size={20} />
         </button>
       </div>
-      {items.map((item) => (
-        <div
-          key={item.id}
-          className="w-full p-6 border-b border-zinc-700 hover:bg-zinc-700 grid grid-cols-4 justify-between text-left"
-        >
-          <p>{item.id}</p>
-          <p>{item.name}</p>
-          <p>{item.description ? item.description : "N/A"}</p>
-          <p className="text-right">${item.price.toFixed(2)}</p>
-        </div>
-      ))}
+      <div className="overflow-y-auto h-[calc(100vh-85px)]">
+        {items.map((item) => (
+          <div
+            key={item.id}
+            className="w-full p-6 border-b border-zinc-700 hover:bg-zinc-700 grid grid-cols-4 justify-between text-left"
+          >
+            <p>{item.id}</p>
+            <p>{item.name}</p>
+            <p>{item.description ? item.description : "N/A"}</p>
+            <p className="text-right">${item.price.toFixed(2)}</p>
+          </div>
+        ))}
+      </div>
       <AddItemModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
