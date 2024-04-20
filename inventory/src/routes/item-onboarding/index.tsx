@@ -24,7 +24,7 @@ export default function ItemOnboarding() {
         <h1 className="text-2xl">Items</h1>
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className=" bg-zinc-700 bg-opacity-20 hover:bg-opacity-30 backdrop-filter backdrop-blur-sm p-2 rounded"
+          className=" bg-zinc-500 bg-opacity-20 hover:bg-opacity-30 backdrop-filter backdrop-blur-sm p-2 rounded"
         >
           <FiPlus size={20} />
         </button>

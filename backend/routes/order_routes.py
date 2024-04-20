@@ -4,6 +4,7 @@ from sqlalchemy.orm import joinedload
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
+from sqlalchemy.orm import joinedload
 
 order_bp = Blueprint("order_bp", __name__)
 
@@ -50,3 +51,31 @@ def create_order():
 
     db.session.commit()
     return jsonify(new_order.to_json()), 201
+
+
+@order_bp.route("/orders", methods=["GET"])
+def get_orders():
+    orders = Order.query.all()
+    orders_json = [order.to_json() for order in orders]
+    return jsonify(orders_json), 200
+
+
+from sqlalchemy.orm import joinedload
+
+
+# @order_bp.route("/orders/<order_id>", methods=["GET"])
+# def get_order_by_id(order_id):
+#     order_id = int(order_id)  # Convert the order_id to an integer
+#     order = Order.query.options(
+#         joinedload(Order.user), joinedload(Order.order_items).joinedload(OrderItem.item)
+#     ).get(order_id)
+
+#     if order:
+#         order_json = order.to_json()
+#         order_json["user"] = order.user.to_json()
+#         order_json["items"] = [
+#             order_item.item.to_json() for order_item in order.order_items
+#         ]
+#         return jsonify(order_json), 200
+#     else:
+#         return jsonify({"error": "Order not found"}), 404

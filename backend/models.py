@@ -52,6 +52,8 @@ class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
     status = db.Column(db.String(100), default="pending")
+    user = db.relationship("User", backref="orders")
+    order_items = db.relationship("OrderItem", backref="order")
 
     def to_json(self):
         return {"id": self.id, "user_id": self.user_id, "status": self.status}
